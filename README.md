@@ -19,13 +19,13 @@ This code is a simple port scanner in Python. Here’s what each part does:
 > This for loop iterates over all port numbers from 1 to 65534. These are all possible port numbers that can be used in a network connection.
 
 ***sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM):*** 
-> This line creates a new socket object. socket.AF_INET refers to the host address family (in this case, IPv4), and socket.SOCK_STREAM indicates that this will be a TCP socket.
+> This line creates a new socket object. ***socket.AF_INET*** refers to the host address family (in this case, IPv4), and ***socket.SOCK_STREAM*** indicates that this will be a TCP socket.
 
 ***sock.settimeout(5):*** 
 > This sets a timeout of 5 seconds on socket operations. If a connection cannot be established within that time, the program will move on to the next port.
 
 ***result = sock.connect_ex((ip, port)):*** 
-> Attempts to establish a connection with the specified IP address and port number. If the connection is successful, connect_ex() returns 0, otherwise, it returns an error code.
+> Attempts to establish a connection with the specified IP address and port number. If the connection is successful, ***connect_ex()*** returns 0, otherwise, it returns an error code.
 
 ***if result == 0: print("Port is open: " + str(port)):*** 
 > If the connection was successful, it prints that the port is open.

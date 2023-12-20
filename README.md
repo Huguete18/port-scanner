@@ -9,31 +9,21 @@
 
 This code is a simple port scanner in Python. Here’s what each part does:
 
-***import socket:*** 
-> This command imports the socket module in Python, which provides a low-level interface for network programming.
+***scan_port(ip, port)*** 
+> The function attempts to establish a TCP connection to a specific port on a given IP address. It creates a new socket and    
+  sets a timeout of 5 seconds for the connect operation. Then, it tries to connect to the specified port on the given IP 
+  address. If the connection is successfully established (i.e., ***result == 0***), the port is open. If the connection fails, 
+  the port is not open.
 
-***ip = input("Enter the ip address:"):*** 
-> This line prompts the user to enter an IP address to scan.
+***main()***
+> The function coordinates the port scanning. It asks the user to input an IP address to scan. Then, it creates a thread pool 
+  using ***concurrent.futures.ThreadPoolExecutor*** and submits tasks to this thread pool to scan each port in the range of 1 
+  to 65535. As tasks complete, it prints the results. Finally, it prints the total time the scan took.
 
-***for port in range(1, 65535):*** 
-> This for loop iterates over all port numbers from 1 to 65534. These are all possible port numbers that can be used in a network connection.
+> This line ensures that the main() function only runs if the script is run directly (i.e., not imported as a module in 
+  another script).
 
-***sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM):*** 
-> This line creates a new socket object. ***socket.AF_INET*** refers to the host address family (in this case, IPv4), and ***socket.SOCK_STREAM*** indicates that this will be a TCP socket.
-
-***sock.settimeout(5):*** 
-> This sets a timeout of 5 seconds on socket operations. If a connection cannot be established within that time, the program will move on to the next port.
-
-***result = sock.connect_ex((ip, port)):*** 
-> Attempts to establish a connection with the specified IP address and port number. If the connection is successful, ***connect_ex()*** returns 0, otherwise, it returns an error code.
-
-***if result == 0: print("Port is open: " + str(port)):*** 
-> If the connection was successful, it prints that the port is open.
-
-***else: print("Port is not open: " + str(port)):*** 
-> If the connection was not successful, it prints that the port is not open.
-
-***sock.close():*** 
-> Closes the socket. This is done whether the connection was successful or not.
-
-In summary, this code is a simple port scanner that attempts to connect to each port on a given IP address and then prints whether the port is open or not. It’s important to note that port scanning can be illegal in some jurisdictions and violate the terms of service of some internet service providers or network hosts. Therefore, you should always obtain permission before performing a port scan.
+> Therefore, this script can be used to determine which ports are open on a given machine, which is useful for security 
+  testing and network troubleshooting. However, keep in mind that port scanning can be seen as aggressive behavior by some 
+  systems and networks, and may be against acceptable use policies on some networks. Therefore, you should only use this 
+  script to scan machines and networks for which you have permission to do so.
